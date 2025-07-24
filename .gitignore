@@ -1,0 +1,26 @@
+# Python-specific ignores
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python/
+env/
+venv/
+.ipynb_checkpoints/
+*.log
+
+# OS-specific ignores
+.DS_Store
+Thumbs.db
+
+# IDE ignores (VS Code)
+.vscode/
+
+# Data/Model ignores (uncomment if you have very large files or sensitive data)
+# data/processed/
+# models/*.pkl
+# models/*.joblib
+# dashboards/
+
+# For this project, we explicitly *want* to commit the raw synthetic data
+# so we DO NOT add `data/` here.
