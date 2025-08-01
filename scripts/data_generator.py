@@ -2,44 +2,42 @@ import pandas as pd
 import numpy as np
 from faker import Faker
 import random
-from datetime import datetime, timedelta, date # Import date specifically
+from datetime import datetime, timedelta, date 
 import os
 
 fake = Faker('en_IN')
 
 # Let's generate random sales data
-def generate_sales_data(num_transactions=10000, start_date_str='2022-01-01', end_date_str='2025-07-25'): # Renamed parameters to avoid confusion
+def generate_sales_data(num_transactions=10000, start_date_str='2022-01-01', end_date_str='2025-07-25'): 
     print(f"Generating {num_transactions} sales transactions...")
 
-    # Convert date strings to datetime.date objects here, once at the beginning of the function
     start_date_obj = datetime.strptime(start_date_str, '%Y-%m-%d').date()
     end_date_obj = datetime.strptime(end_date_str, '%Y-%m-%d').date()
 
-    # Define product categories (your existing code here)
     p_categories = ['Cloud Solutions','CRM Software','Data Analytics','Consulting','Security Services']
     p_per_categories = {
         'Cloud Solutions':['Cloud Storage Tier 1', 'Cloud Storage Tier 2', 'Virtual Servers Basic', 'Virtual Servers Advanced'],
-        'CRM Software':['Salesforce CRM Core', 'Salesforce Marketing Cloud','Salesforce Service Cloud'], # Corrected key
+        'CRM Software':['Salesforce CRM Core', 'Salesforce Marketing Cloud','Salesforce Service Cloud'], 
         'Data Analytics':['Analytics Dashboard Pro','Predictive Modeling Suite','Reporting Tool Basic'],
         'Consulting':['Implementation Consulting','Strategy Consulting','Training Services'],
         'Security Services':['Endpoint Security','Network Security','Data Encryption']
     }
     sales_reg=['New Delhi','Bangalore','Mumbai','Chennai']
     lead_sources=['Website','Referral','Cold Call','Partner','Social Media','Advertisement']
-    deal_stage=['Closed Won','Closed Lost','Negotiation','Prospecting','Proposal Sent'] # Capitalized for consistency
+    deal_stage=['Closed Won','Closed Lost','Negotiation','Prospecting','Proposal Sent'] 
 
     transactions=[]
     num_sales_reps=50
     sales_rep_ids=[f'SREP{i:03d}' for i in range(1,num_sales_reps+1)]
 
     for i in range(num_transactions):
-        # Pass the datetime.date objects to fake.date_between()
+        # Passing the datetime.date objects to fake.date_between()
         transaction_date = fake.date_between(start_date=start_date_obj, end_date=end_date_obj)
 
         # What if my transac date is in future relative to current execution time
         # This check is good, but the conversion back to string for end_date is unnecessary if `date` objects are used consistently
         if(transaction_date > datetime.now().date()):
-            transaction_date = fake.date_between(start_date=start_date_obj, end_date=datetime.now().date()) # Use date object directly
+            transaction_date = fake.date_between(start_date=start_date_obj, end_date=datetime.now().date())
 
 
         category = random.choice(p_categories)
