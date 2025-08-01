@@ -39,7 +39,6 @@ def generate_sales_data(num_transactions=10000, start_date_str='2022-01-01', end
         if(transaction_date > datetime.now().date()):
             transaction_date = fake.date_between(start_date=start_date_obj, end_date=datetime.now().date())
 
-
         category = random.choice(p_categories)
         if category == 'CRM Software':
             product = random.choice(p_per_categories['CRM Software'])
