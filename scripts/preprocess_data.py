@@ -3,12 +3,8 @@ import os
 from datetime import datetime
 
 def preprocess_data(raw_data_dir, processed_data_dir):
-    """
-    Loads raw sales and customer data, merges them, engineers new features,
-    and saves the cleaned, processed data.
-    """
+    
     try:
-        # Load the raw datasets
         sales_file = os.path.join(raw_data_dir, 'sales_transactions.csv')
         customers_file = os.path.join(raw_data_dir, 'customers.csv')
         df_sales = pd.read_csv(sales_file)
@@ -18,17 +14,14 @@ def preprocess_data(raw_data_dir, processed_data_dir):
         print(f"Error loading raw data: {e}. Please ensure data is in the 'data/raw/' directory.")
         return None
 
-    # Merge the DataFrames
     df_merged = pd.merge(df_sales, df_customers, on='customer_id', how='inner')
     print("DataFrames merged successfully!")
 
-    # Convert date columns to datetime objects
     df_merged['transaction_date'] = pd.to_datetime(df_merged['transaction_date'])
     df_merged['customer_since'] = pd.to_datetime(df_merged['customer_since'])
     df_merged['last_interaction'] = pd.to_datetime(df_merged['last_interaction'])
     print("Date columns converted to datetime objects.")
 
-    # Aggregate transaction data for each customer
     today = datetime.now()
     df_customer_summary = df_merged.groupby('customer_id').agg(
         total_revenue=('total_price', 'sum'),
