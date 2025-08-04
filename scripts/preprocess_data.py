@@ -3,7 +3,6 @@ import os
 from datetime import datetime
 
 def preprocess_data(raw_data_dir, processed_data_dir):
-    
     try:
         sales_file = os.path.join(raw_data_dir, 'sales_transactions.csv')
         customers_file = os.path.join(raw_data_dir, 'customers.csv')
