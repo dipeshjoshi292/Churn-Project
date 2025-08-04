@@ -40,16 +40,11 @@ def preprocess_data(raw_data_dir, processed_data_dir):
         last_interaction=('last_interaction', 'max')
     ).reset_index()
     print("Transaction data aggregated to a customer level.")
-
-    # Calculate final recency and tenure features
     df_customer_summary['customer_tenure_months'] = ((today - df_customer_summary['customer_since']).dt.days // 30)
     df_customer_summary['days_since_last_purchase'] = (today - df_customer_summary['last_purchase_date']).dt.days
     df_customer_summary['days_since_last_interaction'] = (today - df_customer_summary['last_interaction']).dt.days
-
-    # Merge with original customer data for final attributes
     df_processed = pd.merge(df_customer_summary, df_customers.drop(columns=['customer_since', 'last_interaction']), on='customer_id', how='left')
-    
-    # Save the processed DataFrame
+
     os.makedirs(processed_data_dir, exist_ok=True)
     processed_file = os.path.join(processed_data_dir, 'cleaned_merged_data.csv')
     df_processed.to_csv(processed_file, index=False)
