@@ -6,8 +6,6 @@ from datetime import datetime, timedelta, date
 import os
 
 fake = Faker('en_IN')
-
-# Let's generate random sales data
 def generate_sales_data(num_transactions=10000, start_date_str='2022-01-01', end_date_str='2025-07-25'): 
     print(f"Generating {num_transactions} sales transactions...")
 
